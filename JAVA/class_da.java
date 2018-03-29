@@ -1,0 +1,55 @@
+/**
+	Author Erlandas Miezys
+	https://open.kattis.com/problems/classy
+*/
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class class_da {
+
+    class Blah implements Comparable<Blah> {
+        String name, stuff;
+
+        Blah(String line) {
+            String[] spl = line.split("\\s+");
+            name = spl[0].substring(0, spl[0].length() - 1);
+            StringBuilder sb = new StringBuilder();
+            for (String c : spl[1].split("-"))
+                sb.insert(0, c.charAt(0));
+            while (sb.length() < 10)
+                sb.append('m');
+            stuff = sb.toString();
+        }
+
+        public int compareTo(Blah b) {
+            int comp = b.stuff.compareTo(stuff);
+            if (comp == 0)
+                comp = name.compareTo(b.name);
+            return comp;
+        }
+    }
+
+    private void work() {
+        Scanner sc = new Scanner(System.in);
+        int nc = sc.nextInt();
+        for (int tc = 1; tc <= nc; tc++) {
+            int n = sc.nextInt();
+            sc.nextLine();
+            Blah[] b = new Blah[n];
+            for (int i = 0; i < b.length; i++) {
+                b[i] = new Blah(sc.nextLine().trim());
+            }
+            Arrays.sort(b);
+            for (Blah blah : b) {
+                System.out.println(blah.name);
+            }
+            System.out.println("==============================");
+        }
+        sc.close();
+    }
+
+    public static void main(String[] args) {
+        new class_da().work();
+}
+}
